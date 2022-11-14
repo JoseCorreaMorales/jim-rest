@@ -9,6 +9,7 @@ use App\Http\Controllers\JWT;
 class AuthController extends Controller
 {
    
+   
     public function login(Request $r){
         $this->validate($r,
          ['username' => 'required', 
