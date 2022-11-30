@@ -16,7 +16,7 @@ class AuthController extends Controller
          'password' => 'required'
         ]); 
 
-        $u = User::where('username', $r ->username)->first();// obtener el username
+        $u = User::where('username', $r ->username)->first();// get username
 
         if (!Hash::check($r->password, $u->password)) {// check credentials 
             return response()->json(['msg' => 'error'],401);

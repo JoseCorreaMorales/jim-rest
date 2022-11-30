@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use Illuminate\Http\Client\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -16,17 +18,33 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+$router->options('{all:.*}', ['middleware' => ['cors']], function () {
+    return response()->json();
+});
+
 
 function resourse($router, $url, $model)
 {
-    $router->get($url, $model.'Controller@index');
-    $router->get($url.'/{id}', $model.'Controller@show');
-    $router->post($url, $model.'Controller@store');
-    $router->put($url.'/{id}', $model.'Controller@update');
-    $router->delete($url.'/{id}', $model.'Controller@destroy');
+   // $router->options($url, $model . 'Controller@options');
+    $router->get($url, $model . 'Controller@index');
+   // $router->get($url . '/{id}', $model . 'Controller@show');
+    $router->post($url, $model . 'Controller@store');
+    $router->put($url . '/{id}', $model . 'Controller@update');
+    $router->delete($url . '/{id}', $model . 'Controller@destroy');
 }
 
 
-$router ->group(['middleware' => 'auth'], function() use($router){
-    resourse($router, '/products', 'Product');    
-    });
+//resourse($router, '/products', 'Product');
+
+//$router->get('/products', 'ProductController@index');
+//$router->post('/products', 'ProductController@store');
+
+$router->group(['middleware' => 'auth'], function () use ($router) {
+ 
+});
+
+$router->group(['middleware' => 'cors'], function () use ($router) {
+ resourse($router, '/products', 'Product');
+ $router->get('/login', 'AuthController@login');
+});
+

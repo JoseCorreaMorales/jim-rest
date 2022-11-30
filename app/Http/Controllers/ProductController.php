@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ExampleController extends Controller
+class ProductController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -17,12 +17,13 @@ class ExampleController extends Controller
     } */
 
     function index(){
-        return Product::paginate();
+        return Product::all();
     }
 
     function store(Request $request){
         $product = new Product();
         $r = $product->fill($request->all())->save();//insert
+        echo $r;
         if (!$r) {
             return response()->json(["message" => "failed"], 404);
         }
@@ -49,4 +50,9 @@ class ExampleController extends Controller
         $product->delete();
         return response()->json(["message"=>"success"]);
     }
+
+    public function options (){
+        return response()->json(["message"=>"success"], 200);
+    }
+    
 }

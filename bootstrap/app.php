@@ -1,4 +1,10 @@
 <?php
+/* Header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With'); */
+
+
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -78,7 +84,7 @@ $app->configure('app');
 
  $app->routeMiddleware([
      'auth' => App\Http\Middleware\Authenticate::class,
-     App\Http\Middleware\CorsMiddleware::class
+     'cors' => App\Http\Middleware\CorsMiddleware::class
  ]);
 
 /*  $app->middleware([

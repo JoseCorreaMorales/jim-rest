@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 use Faker\Factory  as Faker;
+
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -19,21 +20,24 @@ class UsersTableSeeder extends Seeder
     {
         $faker = faker::create();
 
-        DB::table('users')->insert([
-            'user_name' => 'Admin' ,
-            'email' => 'admin@algo.com', 
-            'password' => Hash::make('123'),                       
-            'role' => 'admin',
-         ]);
-
-         for ($i=0; $i <10 ; $i++) { 
+        for ($i = 0; $i < 5; $i++) {
             DB::table('users')->insert([
-                'user_name' => $faker -> name,
+                'username' => $faker -> name,
                 'email' => $faker -> email,
-                'password' =>  Hash::make('111'),                       
+                'password' => Hash::make('123'),
+                'role' => 'admin',
+            ]);
+        }
+
+
+
+        for ($i = 0; $i < 10; $i++) {
+            DB::table('users')->insert([
+                'username' => $faker->name,
+                'email' => $faker->email,
+                'password' =>  Hash::make('111'),
                 'role' => 'user',
-             ]);
-         }
- 
+            ]);
+        }
     }
 }
